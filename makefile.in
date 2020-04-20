@@ -19,7 +19,8 @@ LIBS=@MLIBS@ fec.o viterbi27.o viterbi27_port.o viterbi29.o viterbi29_port.o \
 	encode_rs_ccsds.o decode_rs_ccsds.o ccsds_tal.o \
 	dotprod.o dotprod_port.o \
 	peakval.o peakval_port.o \
-	sumsq.o sumsq_port.o
+	sumsq.o sumsq_port.o \
+	fec.h dsp.3 rs.3 simd-viterbi.3
 
 CFLAGS=@CFLAGS@ -fPIC -I. -Wall @ARCH_OPTION@
 LDFLAGS=@LDFLAGS@
@@ -45,14 +46,14 @@ test: vtest27 vtest29 vtest39 vtest615 rstest dtest sumsq_test peaktest
 	./vtest615
 
 install: all
-	mkdir -p @libdir@ 
-	install -m 644 -p $(SHARED_LIB) libfec.a @libdir@
+	mkdir -p $(DESTPATH)@libdir@
+	install -m 644 -p $(DESTPATH)$(SHARED_LIB) libfec.a @libdir@
 #	(cd @libdir@;ln -f -s $(SHARED_LIB) libfec.so)
 	@REBIND@
-	mkdir -p @includedir@
-	install -m 644 -p fec.h @includedir@
-	mkdir -m 0755 -p @mandir@/man3
-	install -m 644 -p simd-viterbi.3 rs.3 dsp.3 @mandir@/man3
+	mkdir -p $(DESTPATH)@includedir@
+	install -m 644 -p fec.h $(DESTPATH)@includedir@
+	mkdir -m 0755 -p $(DESTPATH)@mandir@/man3
+	install -m 644 -p simd-viterbi.3 rs.3 dsp.3 $(DESTPATH)@mandir@/man3
 
 peaktest: peaktest.o libfec.a
 	gcc -g -o $@ $^
