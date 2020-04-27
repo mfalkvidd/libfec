@@ -47,7 +47,7 @@ test: vtest27 vtest29 vtest39 vtest615 rstest dtest sumsq_test peaktest
 
 install: all
 	mkdir -p $(DESTPATH)@libdir@
-	install -m 644 -p $(DESTPATH)$(SHARED_LIB) libfec.a @libdir@
+	install -m 644 -p $(DESTPATH)$(SHARED_LIB) libfec.a $(DESTPATH)@libdir@
 #	(cd @libdir@;ln -f -s $(SHARED_LIB) libfec.so)
 	@REBIND@
 	mkdir -p $(DESTPATH)@includedir@
